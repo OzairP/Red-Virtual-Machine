@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { UniqueAddress, VirtualMachine } from './VirtualMachine'
+import { VirtualMachine } from './VirtualMachine'
 
 // 64kb of memory
 const vm = new VirtualMachine(16 ** 4)
@@ -12,9 +12,3 @@ const hexString = readFileSync(instructionFile, { encoding: 'ascii' }).replace(
 const instructionBuffer = Buffer.from(hexString, 'hex')
 
 vm.loadInstructions(instructionBuffer)
-
-console.log(
-	vm.heap.getUint16(UniqueAddress.INSTRUCTION_STACK),
-	vm.heap.getUint8(vm.heap.getUint16(UniqueAddress.INSTRUCTION_STACK)),
-	vm.heap.getUint8(vm.heap.getUint16(UniqueAddress.INSTRUCTION_STACK) + 1)
-)

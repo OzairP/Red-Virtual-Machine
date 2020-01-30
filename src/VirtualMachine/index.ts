@@ -5,9 +5,15 @@ import { UniqueAddress } from './UniqueAddress'
 
 export class VirtualMachine {
 	public register = {
-		A: new Uint8Array(1),
-		B: new Uint8Array(1),
-		C: new Uint16Array(1)
+		ACCUMULATOR_A: new Uint8Array(1),
+		ACCUMULATOR_B: new Uint8Array(1),
+		C: new Uint16Array(1),
+		INDEX_X: new Uint8Array(1),
+		INDEX_Y: new Uint8Array(1),
+		INSTRUCTION_POINTER: new Uint16Array(
+			UniqueAddress.DEFAULT_INSTRUCTION_POINTER
+		),
+		STACK_POINTER: new Uint16Array(1)
 	}
 
 	public heap: Heap
@@ -35,10 +41,10 @@ export class VirtualMachine {
 		}
 
 		// Copy rest of instructions to the instruction stack
-		let nextInstructionAddress = this.heap.getUint16(
-			UniqueAddress.INSTRUCTION_STACK
+		this.heap.copyWithin(
+			instructions.rest(),
+			this.register.INSTRUCTION_POINTER[0]
 		)
-		this.heap.copyWithin(instructions.rest(), nextInstructionAddress)
 	}
 
 	public start() {
@@ -60,8 +66,7 @@ export class VirtualMachine {
 		const instruction: Instruction = instructions.getUint8()
 		switch (instruction) {
 			case Instruction.__INITIAL_INSTRUCTION_POINTER: {
-				const address = instructions.getUint16()
-				this.heap.setUint16(UniqueAddress.INSTRUCTION_STACK, address)
+				this.register.INSTRUCTION_POINTER[0] = instructions.getUint16()
 				break
 			}
 

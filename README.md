@@ -7,15 +7,23 @@ This project was made for educational reasons.
 The initial heap size is 16kb which allows for memory addresses
 to be 4 hexadecimal digits long.
 
+### Register Map
+
+| Register Name       | Alias | Size  | Description                             |
+| ------------------- | ----- | ----- | --------------------------------------- |
+| Accumulator A       | AA    | 8bit  | Accumulator A                           |
+| Accumulator B       | AB    | 8bit  | Accumulator A                           |
+| Register C          | C     | 16bit | General purpose                         |
+| Index X             | IX    | 8bit  | General purpose index register          |
+| Index Y             | IY    | 8bit  | General purpose index register          |
+| Instruction Pointer | IP    | 16bit | Next instruction address to be executed |
+| Stack pointer       | SP    | 16bit | Next empty pointer on the call stack    |
+
 ### Memory Map
 
-Addresses beyond `0xF000` are reserved for the machine however
-they may be read/written although it is not recommended.
-
-| Address             | Name                                | Description                                                                                                                                        |
-| ------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `0xF000` - `0xF800` | Stack frame pointer stack           | 256 bytes of memory reserved for a stack of pointers that point to an instruction. Since addresses are 2 bytes this stack only holds 128 pointers. |
-| `0xF801`            | (Stack frame pointer) stack pointer | The pointer for the previous stack.                                                                                                                |
+| Address             | Name       | Description                             |
+| ------------------- | ---------- | --------------------------------------- |
+| `0xF000` - `0xFF00` | Call stack | 3840 bytes reserved for the call stack. |
 
 ## Machine Code
 
