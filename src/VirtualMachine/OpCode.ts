@@ -1,0 +1,103 @@
+export enum OpCode {
+	TERMINATE = 0x00,
+
+	// Opcode addressing mode https://stackoverflow.com/questions/20608930/addressing-modes-in-assembly-language-ia-32-nasm
+	ADDR_MODE_INTRINSIC,
+	ADDR_MODE_IMMEDIATE,
+	ADDR_MODE_DIRECT,
+	ADDR_MODE_RELATIVE,
+	ADDR_MODE_REGISTER,
+	ADDR_MODE_REGISTER_INDIRECT,
+
+	NOP,
+	CALL,
+	JUMP,
+	RET,
+
+	PUSH_AA,
+	PUSH_AB,
+	PUSH_C,
+	PUSH_IX,
+	PUSH_IY,
+
+	POP_AA,
+	POP_AB,
+	POP_C,
+	POP_IX,
+	POP_IY,
+
+	LOAD_AA,
+	LOAD_AB,
+	LOAD_C,
+	LOAD_IX,
+	LOAD_IY,
+	LOAD_SP,
+
+	STORE_AA,
+	STORE_AB,
+	STORE_C,
+	STORE_IX,
+	STORE_IY,
+	STORE_SP,
+
+	AND,
+	AND_AA,
+	AND_AB,
+
+	OR,
+	OR_AA,
+	OR_AB,
+
+	EOR,
+	EOR_AA,
+	EOR_AB,
+
+	COM,
+	COM_AA,
+	COM_AB,
+	COM_C,
+
+	NEG,
+	NEG_AA,
+	NEG_AB,
+	NEG_C,
+
+	INC,
+	INC_AA,
+	INC_AB,
+	INC_IX,
+	INC_IY,
+	INC_SP,
+
+	ADD,
+	ADD_AA,
+	ADD_AB,
+	ADD_C,
+	ADD_A_TO_B,
+
+	SUB,
+	SUB_AA,
+	SUB_AB,
+	SUB_C,
+
+	MUL,
+	MUL_AA,
+	MUL_AB,
+	MUL_C,
+
+	DIV,
+	DIV_AA,
+	DIV_AB,
+	DIV_C,
+
+	__INITIAL_INSTRUCTION_POINTER = 0xf0
+}
+
+export enum OpCodeAddressingMode {
+	INTRINSIC = OpCode.ADDR_MODE_INTRINSIC,
+	IMMEDIATE = OpCode.ADDR_MODE_IMMEDIATE,
+	DIRECT = OpCode.ADDR_MODE_DIRECT,
+	RELATIVE = OpCode.ADDR_MODE_RELATIVE,
+	REGISTER = OpCode.ADDR_MODE_REGISTER,
+	REGISTER_INDIRECT = OpCode.ADDR_MODE_REGISTER_INDIRECT
+}

@@ -1,6 +1,6 @@
 import { ShiftingDataView } from '../Util/ShiftingDataView'
 import { Heap } from './Heap'
-import { Instruction } from './Instruction'
+import { OpCode } from './OpCode'
 import { UniqueAddress } from './UniqueAddress'
 
 export class VirtualMachine {
@@ -34,8 +34,7 @@ export class VirtualMachine {
 
 		// Process flags
 		while (
-			instructions.peekUint8() >=
-			Instruction.__INITIAL_INSTRUCTION_POINTER
+			instructions.peekUint8() >= OpCode.__INITIAL_INSTRUCTION_POINTER
 		) {
 			this.processFlag(instructions)
 		}
@@ -63,18 +62,17 @@ export class VirtualMachine {
 	 * Process the next flag from the head of instruction set
 	 */
 	private processFlag(instructions: ShiftingDataView) {
-		const instruction: Instruction = instructions.getUint8()
+		const instruction: OpCode = instructions.getUint8()
 		switch (instruction) {
-			case Instruction.__INITIAL_INSTRUCTION_POINTER: {
+			case OpCode.__INITIAL_INSTRUCTION_POINTER:
 				this.register.INSTRUCTION_POINTER[0] = instructions.getUint16()
 				break
-			}
 
 			default:
-				throw new Error(`Unknown instruction ${instruction}`)
+				throw new Error(`Unknown instruction flag ${instruction}`)
 		}
 	}
 }
 
-export { Instruction } from './Instruction'
+export { OpCode, OpCodeAddressingMode } from './OpCode'
 export { UniqueAddress } from './UniqueAddress'
